@@ -1,0 +1,280 @@
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| college              |
+| emp                  |
+| hotel_management     |
+| hotel_management_org |
+| information_schema   |
+| mysql                |
+| papu                 |
+| pavi                 |
+| performance_schema   |
+| player               |
+| players              |
+| sakila               |
+| school               |
+| shopping             |
+| sys                  |
+| travel               |
+| world                |
++----------------------+
+17 rows in set (0.00 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| marks             |
+| studentprofile    |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> create table stud_profile(rollno int,name varchar(20),dob date,department varcha
+r(20),city varchar(20));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> create table stud_marks(rollno int,name varchar(20),marks1 int,mark2 int);
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> insert into stud_profile values(01,'Arun','2000-01-01','Computer science','chennai'),(02,'Akalya','2000-02-02','Science','kovai'),(03,'kayal','2000-03-03','Physics','kerala'),(04,'Malar','2000-04-04','Maths','Bangalore'),(05,'Yash','2000-05-05','English','Hydrabad');
+Query OK, 5 rows affected (0.08 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select*from stud_profile;
++--------+--------+------------+------------------+-----------+
+| rollno | name   | dob        | department       | city      |
++--------+--------+------------+------------------+-----------+
+|      1 | Arun   | 2000-01-01 | Computer science | chennai   |
+|      2 | Akalya | 2000-02-02 | Science          | kovai     |
+|      3 | kayal  | 2000-03-03 | Physics          | kerala    |
+|      4 | Malar  | 2000-04-04 | Maths            | Bangalore |
+|      5 | Yash   | 2000-05-05 | English          | Hydrabad  |
++--------+--------+------------+------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> insert into stud_marks values(01,'Arun',99,89),(02,'Akalya',89,79),(03,'kayal',39,59),(04,'Malar',45,55),(05,'Yash',35,30);
+Query OK, 5 rows affected (0.12 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select*from stud_marks;
++--------+--------+--------+-------+
+| rollno | name   | marks1 | mark2 |
++--------+--------+--------+-------+
+|      1 | Arun   |     99 |    89 |
+|      2 | Akalya |     89 |    79 |
+|      3 | kayal  |     39 |    59 |
+|      4 | Malar  |     45 |    55 |
+|      5 | Yash   |     35 |    30 |
++--------+--------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table stud_marks add total int;
+Query OK, 0 rows affected (0.24 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from stud_marks;
++--------+--------+--------+-------+-------+
+| rollno | name   | marks1 | mark2 | total |
++--------+--------+--------+-------+-------+
+|      1 | Arun   |     99 |    89 |  NULL |
+|      2 | Akalya |     89 |    79 |  NULL |
+|      3 | kayal  |     39 |    59 |  NULL |
+|      4 | Malar  |     45 |    55 |  NULL |
+|      5 | Yash   |     35 |    30 |  NULL |
++--------+--------+--------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table stud_profile rename column dob to dateofbirth;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from stud_profile;
++--------+--------+-------------+------------------+-----------+
+| rollno | name   | dateofbirth | department       | city      |
++--------+--------+-------------+------------------+-----------+
+|      1 | Arun   | 2000-01-01  | Computer science | chennai   |
+|      2 | Akalya | 2000-02-02  | Science          | kovai     |
+|      3 | kayal  | 2000-03-03  | Physics          | kerala    |
+|      4 | Malar  | 2000-04-04  | Maths            | Bangalore |
+|      5 | Yash   | 2000-05-05  | English          | Hydrabad  |
++--------+--------+-------------+------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> desc stud_profile;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| rollno      | int         | YES  |     | NULL    |       |
+| name        | varchar(20) | YES  |     | NULL    |       |
+| dateofbirth | date        | YES  |     | NULL    |       |
+| department  | varchar(20) | YES  |     | NULL    |       |
+| city        | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> desc stud_marks;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| marks1 | int         | YES  |     | NULL    |       |
+| mark2  | int         | YES  |     | NULL    |       |
+| total  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| marks             |
+| stud_marks        |
+| stud_profile      |
+| studentprofile    |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> update stud_marks set total=marks1+mark2;
+Query OK, 5 rows affected (0.14 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select*from stud_marks;
++--------+--------+--------+-------+-------+
+| rollno | name   | marks1 | mark2 | total |
++--------+--------+--------+-------+-------+
+|      1 | Arun   |     99 |    89 |   188 |
+|      2 | Akalya |     89 |    79 |   168 |
+|      3 | kayal  |     39 |    59 |    98 |
+|      4 | Malar  |     45 |    55 |   100 |
+|      5 | Yash   |     35 |    30 |    65 |
++--------+--------+--------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> delete from stud_profile where rollno=04;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select*from stud_profile;
++--------+--------+-------------+------------------+----------+
+| rollno | name   | dateofbirth | department       | city     |
++--------+--------+-------------+------------------+----------+
+|      1 | Arun   | 2000-01-01  | Computer science | chennai  |
+|      2 | Akalya | 2000-02-02  | Science          | kovai    |
+|      3 | kayal  | 2000-03-03  | Physics          | kerala   |
+|      5 | Yash   | 2000-05-05  | English          | Hydrabad |
++--------+--------+-------------+------------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select*from stud_marks;
++--------+--------+--------+-------+-------+
+| rollno | name   | marks1 | mark2 | total |
++--------+--------+--------+-------+-------+
+|      1 | Arun   |     99 |    89 |   188 |
+|      2 | Akalya |     89 |    79 |   168 |
+|      3 | kayal  |     39 |    59 |    98 |
+|      4 | Malar  |     45 |    55 |   100 |
+|      5 | Yash   |     35 |    30 |    65 |
++--------+--------+--------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table stud_marks add average decimal(6,2);
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table stud_marks add grade enum('pass','fail');
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from stud_marks;
++--------+--------+--------+-------+-------+---------+-------+
+| rollno | name   | marks1 | mark2 | total | average | grade |
++--------+--------+--------+-------+-------+---------+-------+
+|      1 | Arun   |     99 |    89 |   188 |    NULL | NULL  |
+|      2 | Akalya |     89 |    79 |   168 |    NULL | NULL  |
+|      3 | kayal  |     39 |    59 |    98 |    NULL | NULL  |
+|      4 | Malar  |     45 |    55 |   100 |    NULL | NULL  |
+|      5 | Yash   |     35 |    30 |    65 |    NULL | NULL  |
++--------+--------+--------+-------+-------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql>  update stud_marks set average=total/2;
+Query OK, 5 rows affected (0.15 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select*from stud_marks;
++--------+--------+--------+-------+-------+---------+-------+
+| rollno | name   | marks1 | mark2 | total | average | grade |
++--------+--------+--------+-------+-------+---------+-------+
+|      1 | Arun   |     99 |    89 |   188 |   94.00 | NULL  |
+|      2 | Akalya |     89 |    79 |   168 |   84.00 | NULL  |
+|      3 | kayal  |     39 |    59 |    98 |   49.00 | NULL  |
+|      4 | Malar  |     45 |    55 |   100 |   50.00 | NULL  |
+|      5 | Yash   |     35 |    30 |    65 |   32.50 | NULL  |
++--------+--------+--------+-------+-------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select grade,if(marks1 and mark2 >40,'pass','fail')from stud_marks;
++-------+----------------------------------------+
+| grade | if(marks1 and mark2 >40,'pass','fail') |
++-------+----------------------------------------+
+| NULL  | pass                                   |
+| NULL  | pass                                   |
+| NULL  | pass                                   |
+| NULL  | pass                                   |
+| NULL  | fail                                   |
++-------+----------------------------------------+
+5 rows in set (0.11 sec)
+
+mysql> select grade,if(marks1>40 and mark2 >40,'pass','fail')from stud_marks;
++-------+-------------------------------------------+
+| grade | if(marks1>40 and mark2 >40,'pass','fail') |
++-------+-------------------------------------------+
+| NULL  | pass                                      |
+| NULL  | pass                                      |
+| NULL  | fail                                      |
+| NULL  | pass                                      |
+| NULL  | fail                                      |
++-------+-------------------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> update stud_marks set grade=if(marks1>40 and mark2>40,'pass','fail');
+Query OK, 5 rows affected (0.12 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select*from stud_marks;
++--------+--------+--------+-------+-------+---------+-------+
+| rollno | name   | marks1 | mark2 | total | average | grade |
++--------+--------+--------+-------+-------+---------+-------+
+|      1 | Arun   |     99 |    89 |   188 |   94.00 | pass  |
+|      2 | Akalya |     89 |    79 |   168 |   84.00 | pass  |
+|      3 | kayal  |     39 |    59 |    98 |   49.00 | fail  |
+|      4 | Malar  |     45 |    55 |   100 |   50.00 | pass  |
+|      5 | Yash   |     35 |    30 |    65 |   32.50 | fail  |
++--------+--------+--------+-------+-------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table stud_marks drop average;
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from stud_marks;
++--------+--------+--------+-------+-------+-------+
+| rollno | name   | marks1 | mark2 | total | grade |
++--------+--------+--------+-------+-------+-------+
+|      1 | Arun   |     99 |    89 |   188 | pass  |
+|      2 | Akalya |     89 |    79 |   168 | pass  |
+|      3 | kayal  |     39 |    59 |    98 | fail  |
+|      4 | Malar  |     45 |    55 |   100 | pass  |
+|      5 | Yash   |     35 |    30 |    65 | fail  |
++--------+--------+--------+-------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> truncate table stud_marks;
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> select*from stud_marks;
+Empty set (0.00 sec)
+
+mysql>

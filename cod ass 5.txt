@@ -1,0 +1,99 @@
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| college              |
+| emp                  |
+| hotel_management     |
+| hotel_management_org |
+| information_schema   |
+| mysql                |
+| papu                 |
+| pavi                 |
+| performance_schema   |
+| player               |
+| players              |
+| sakila               |
+| school               |
+| shopping             |
+| sys                  |
+| travel               |
+| world                |
++----------------------+
+17 rows in set (0.01 sec)
+
+mysql> create database sail_details;
+Query OK, 1 row affected (0.20 sec)
+
+mysql> use sail_details;
+Database changed
+mysql> select database();
++--------------+
+| database()   |
++--------------+
+| sail_details |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> create table sailor(SID int primary key,
+    -> name varchar(20) not null,
+    -> dob date not null,
+    -> gender char(1) check(gender in('M','F')));
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> create table Boat(BID int primary key,
+    -> btype char(1) check(btype in('D','S')),
+    -> Bname varchar(20) unique,
+    -> color varchar(20) not null);
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> create table sails(SID int,BID int,DOT date not null,shift char(2) check(shift in('FN','AN')),foreign key(SID) references sailor(SID),foreign key(BID) references boat(BID));
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> insert into sailor values(01,'Banny','2000-01-01','F'),(02,'Akil','2003-02-03','M'),(03,'Dhruv','2005-09-08','M'),(04,'Tharun','2001-10-10','M'),(05,'Bharathi','2003-05-04','F');
+Query OK, 5 rows affected (0.22 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into Boat values(010,'D','hydra','yellow'),(020,'S','Ptrat','white'),(030,'D','crack','blue'),(040,'S','valk','grey'),(050,'D','brito','black');
+Query OK, 5 rows affected (0.16 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into sails values(01,010,'2020-10-10','FN'),(02,020,'2020-07-10','FN'),(03,030,'2020-11-10','AN'),(04,040,'2020-12-12','FN'),(05,050,'2020-03-13','AN');
+Query OK, 5 rows affected (0.23 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select*from sailor;
++-----+----------+------------+--------+
+| SID | name     | dob        | gender |
++-----+----------+------------+--------+
+|   1 | Banny    | 2000-01-01 | F      |
+|   2 | Akil     | 2003-02-03 | M      |
+|   3 | Dhruv    | 2005-09-08 | M      |
+|   4 | Tharun   | 2001-10-10 | M      |
+|   5 | Bharathi | 2003-05-04 | F      |
++-----+----------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select*from boat;
++-----+-------+-------+--------+
+| BID | btype | Bname | color  |
++-----+-------+-------+--------+
+|  10 | D     | hydra | yellow |
+|  20 | S     | Ptrat | white  |
+|  30 | D     | crack | blue   |
+|  40 | S     | valk  | grey   |
+|  50 | D     | brito | black  |
++-----+-------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select*from sails;
++------+------+------------+-------+
+| SID  | BID  | DOT        | shift |
++------+------+------------+-------+
+|    1 |   10 | 2020-10-10 | FN    |
+|    2 |   20 | 2020-07-10 | FN    |
+|    3 |   30 | 2020-11-10 | AN    |
+|    4 |   40 | 2020-12-12 | FN    |
+|    5 |   50 | 2020-03-13 | AN    |
++------+------+------------+-------+
+5 rows in set (0.00 sec)

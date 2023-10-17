@@ -1,0 +1,132 @@
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| college              |
+| emp                  |
+| hotel_management     |
+| hotel_management_org |
+| information_schema   |
+| mysql                |
+| papu                 |
+| pavi                 |
+| performance_schema   |
+| player               |
+| sakila               |
+| school               |
+| sys                  |
+| travel               |
+| world                |
++----------------------+
+15 rows in set (0.00 sec)
+
+mysql> create database players; 
+Query OK, 1 row affected (0.13 sec)
+
+mysql> use players;
+Database changed
+mysql> select database();
++------------+
+| database() |
++------------+
+| players    |
++------------+
+1 row in set (0.00 sec)
+
+mysql> create table players(name varchar(20),age int,score int);
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> insert into players values('Raj',26,120);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from players;
++------+------+-------+
+| name | age  | score |
++------+------+-------+
+| Raj  |   26 |   120 |
++------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into players values('Ram',28,125),('Charan',25,173),('Ravan',20,152);
+Query OK, 3 rows affected (0.10 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select*from players;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| Raj    |   26 |   120 |
+| Ram    |   28 |   125 |
+| Charan |   25 |   173 |
+| Ravan  |   20 |   152 |
++--------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> update players set age=30 where name='Raj';
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from players;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| Raj    |   30 |   120 |
+| Ram    |   28 |   125 |
+| Charan |   25 |   173 |
+| Ravan  |   20 |   152 |
++--------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> delete from players where name='Ram';
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select*from players;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| Raj    |   30 |   120 |
+| Charan |   25 |   173 |
+| Ravan  |   20 |   152 |
++--------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table players add strike_rate decimal(8,2);
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from players;
++--------+------+-------+-------------+
+| name   | age  | score | strike_rate |
++--------+------+-------+-------------+
+| Raj    |   30 |   120 |        NULL |
+| Charan |   25 |   173 |        NULL |
+| Ravan  |   20 |   152 |        NULL |
++--------+------+-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,age from players;
++--------+------+
+| name   | age  |
++--------+------+
+| Raj    |   30 |
+| Charan |   25 |
+| Ravan  |   20 |
++--------+------+
+3 rows in set (0.00 sec)
+
+mysql> select name as "full_name" from players;
++-----------+
+| full_name |
++-----------+
+| Raj       |
+| Charan    |
+| Ravan     |
++-----------+
+3 rows in set (0.00 sec)
+
+mysql> drop table players;
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> select*from players;
+ERROR 1146 (42S02): Table 'players.players' doesn't exist
+mysql> notee

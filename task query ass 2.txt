@@ -1,0 +1,188 @@
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| college              |
+| emp                  |
+| hotel_management     |
+| hotel_management_org |
+| information_schema   |
+| mysql                |
+| papu                 |
+| pavi                 |
+| performance_schema   |
+| player               |
+| players              |
+| sakila               |
+| school               |
+| shopping             |
+| sys                  |
+| travel               |
+| world                |
++----------------------+
+17 rows in set (0.01 sec)
+
+mysql> use shopping;
+Database changed
+mysql> select database();
++------------+
+| database() |
++------------+
+| shopping   |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select* from
+    -> online_products;
++---------------------------+----------+-------+---------+---------+
+| name                      | category | price | brand   | ratings |
++---------------------------+----------+-------+---------+---------+
+| Black_shirt               | Clothing |   900 | Puma    |    4.80 |
+| Barbie                    | doll     |   800 | Puma    |    4.00 |
+| Black_jeans               | Clothing |  2000 | blacky  |    5.00 |
+| Bourbon_small             | snacks   |  1000 | bourbon |    7.00 |
+| bourbon_with_extracookies | snacks   |   600 | lays    |    3.80 |
+| Chips                     | snacks   |   600 | lays    |    5.80 |
+| Horn_toy                  | doll     |  7000 | Puma    |    6.80 |
+| potato_chips              | snacks   |   100 | lays    |    2.50 |
+| sound_horn                | doll     |   600 | puma    |    8.00 |
++---------------------------+----------+-------+---------+---------+
+9 rows in set (0.00 sec)
+
+mysql> insert into online_products values ('doll','handmade',1000,'denim','5.0'),('pot','handmade',2000,'denim','6.0'),('checked shirts','clothing',800,'nike','4.0'),('redmi2','phone',9000,'redmi','9.0'), ('redmi34','phone',9000,'redmi','9.7'),('oneplus3','phone',9000,'oneplus','9.9'),('cakes','birthday',500,'cadbury','4.9'),('cakes','birthday',900,'britannia','5.2'),('white shirts','clothing',500,'puma','5.2'),('Black shirts','clothing',900,'levis','7.2');
+Query OK, 10 rows affected (0.13 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select*from online_products;
++---------------------------+----------+-------+-----------+---------+
+| name                      | category | price | brand     | ratings |
++---------------------------+----------+-------+-----------+---------+
+| Black_shirt               | Clothing |   900 | Puma      |    4.80 |
+| Barbie                    | doll     |   800 | Puma      |    4.00 |
+| Black_jeans               | Clothing |  2000 | blacky    |    5.00 |
+| Bourbon_small             | snacks   |  1000 | bourbon   |    7.00 |
+| bourbon_with_extracookies | snacks   |   600 | lays      |    3.80 |
+| Chips                     | snacks   |   600 | lays      |    5.80 |
+| Horn_toy                  | doll     |  7000 | Puma      |    6.80 |
+| potato_chips              | snacks   |   100 | lays      |    2.50 |
+| sound_horn                | doll     |   600 | puma      |    8.00 |
+| doll                      | handmade |  1000 | denim     |    5.00 |
+| pot                       | handmade |  2000 | denim     |    6.00 |
+| checked shirts            | clothing |   800 | nike      |    4.00 |
+| redmi2                    | phone    |  9000 | redmi     |    9.00 |
+| redmi34                   | phone    |  9000 | redmi     |    9.70 |
+| oneplus3                  | phone    |  9000 | oneplus   |    9.90 |
+| cakes                     | birthday |   500 | cadbury   |    4.90 |
+| cakes                     | birthday |   900 | britannia |    5.20 |
+| white shirts              | clothing |   500 | puma      |    5.20 |
+| Black shirts              | clothing |   900 | levis     |    7.20 |
++---------------------------+----------+-------+-----------+---------+
+19 rows in set (0.00 sec)
+
+mysql> select * from Online_products where category='clothing' and price<700;
++--------------+----------+-------+-------+---------+
+| name         | category | price | brand | ratings |
++--------------+----------+-------+-------+---------+
+| white shirts | clothing |   500 | puma  |    5.20 |
++--------------+----------+-------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> select* from online_products
+    -> where brand='denim' AND ratings>4;
++------+----------+-------+-------+---------+
+| name | category | price | brand | ratings |
++------+----------+-------+-------+---------+
+| doll | handmade |  1000 | denim |    5.00 |
+| pot  | handmade |  2000 | denim |    6.00 |
++------+----------+-------+-------+---------+
+2 rows in set (0.02 sec)
+
+mysql> select* from online_products
+    -> where price<=1000 AND ratings>4;
++---------------+----------+-------+-----------+---------+
+| name          | category | price | brand     | ratings |
++---------------+----------+-------+-----------+---------+
+| Black_shirt   | Clothing |   900 | Puma      |    4.80 |
+| Bourbon_small | snacks   |  1000 | bourbon   |    7.00 |
+| Chips         | snacks   |   600 | lays      |    5.80 |
+| sound_horn    | doll     |   600 | puma      |    8.00 |
+| doll          | handmade |  1000 | denim     |    5.00 |
+| cakes         | birthday |   500 | cadbury   |    4.90 |
+| cakes         | birthday |   900 | britannia |    5.20 |
+| white shirts  | clothing |   500 | puma      |    5.20 |
+| Black shirts  | clothing |   900 | levis     |    7.20 |
++---------------+----------+-------+-----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select* from online_products
+    -> where ratings>3.6 and price<1000 and brand='Puma';
++--------------+----------+-------+-------+---------+
+| name         | category | price | brand | ratings |
++--------------+----------+-------+-------+---------+
+| Black_shirt  | Clothing |   900 | Puma  |    4.80 |
+| Barbie       | doll     |   800 | Puma  |    4.00 |
+| sound_horn   | doll     |   600 | puma  |    8.00 |
+| white shirts | clothing |   500 | puma  |    5.20 |
++--------------+----------+-------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from Online_products where (brand='puma') or (brand='denim') or (brand='nike');
++----------------+----------+-------+-------+---------+
+| name           | category | price | brand | ratings |
++----------------+----------+-------+-------+---------+
+| Black_shirt    | Clothing |   900 | Puma  |    4.80 |
+| Barbie         | doll     |   800 | Puma  |    4.00 |
+| Horn_toy       | doll     |  7000 | Puma  |    6.80 |
+| sound_horn     | doll     |   600 | puma  |    8.00 |
+| doll           | handmade |  1000 | denim |    5.00 |
+| pot            | handmade |  2000 | denim |    6.00 |
+| checked shirts | clothing |   800 | nike  |    4.00 |
+| white shirts   | clothing |   500 | puma  |    5.20 |
++----------------+----------+-------+-------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Online_products where (brand='redmi' and  ratings>4) or (brand='oneplus');
++----------+----------+-------+---------+---------+
+| name     | category | price | brand   | ratings |
++----------+----------+-------+---------+---------+
+| redmi2   | phone    |  9000 | redmi   |    9.00 |
+| redmi34  | phone    |  9000 | redmi   |    9.70 |
+| oneplus3 | phone    |  9000 | oneplus |    9.90 |
++----------+----------+-------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Online_products where (name='cakes') or (brand='cadbury' and 'britannia') and (ratings>4);
++-------+----------+-------+-----------+---------+
+| name  | category | price | brand     | ratings |
++-------+----------+-------+-----------+---------+
+| cakes | birthday |   500 | cadbury   |    4.90 |
+| cakes | birthday |   900 | britannia |    5.20 |
++-------+----------+-------+-----------+---------+
+2 rows in set, 1 warning (0.00 sec)
+
+mysql> select*from online_products where (brand='puma' and ratings>3.5) or (brand='denim' and ratings>4);
++--------------+----------+-------+-------+---------+
+| name         | category | price | brand | ratings |
++--------------+----------+-------+-------+---------+
+| Black_shirt  | Clothing |   900 | Puma  |    4.80 |
+| Barbie       | doll     |   800 | Puma  |    4.00 |
+| Horn_toy     | doll     |  7000 | Puma  |    6.80 |
+| sound_horn   | doll     |   600 | puma  |    8.00 |
+| doll         | handmade |  1000 | denim |    5.00 |
+| pot          | handmade |  2000 | denim |    6.00 |
+| white shirts | clothing |   500 | puma  |    5.20 |
++--------------+----------+-------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select name from online_products where (brand='puma' or 'nike' or 'levis') and name<>'black_shirt';
++--------------+
+| name         |
++--------------+
+| Barbie       |
+| Horn_toy     |
+| sound_horn   |
+| white shirts |
++--------------+
+4 rows in set, 2 warnings (0.00 sec)
+
+mysql>

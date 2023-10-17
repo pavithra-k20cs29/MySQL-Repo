@@ -1,0 +1,278 @@
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| college              |
+| emp                  |
+| hotel_management     |
+| hotel_management_org |
+| information_schema   |
+| mysql                |
+| papu                 |
+| pavi                 |
+| performance_schema   |
+| player               |
+| players              |
+| sakila               |
+| school               |
+| sys                  |
+| travel               |
+| world                |
++----------------------+
+16 rows in set (0.06 sec)
+
+mysql> create database shopping;
+Query OK, 1 row affected (0.15 sec)
+
+mysql> use shopping;
+Database changed
+mysql> select database();
++------------+
+| database() |
++------------+
+| shopping   |
++------------+
+1 row in set (0.00 sec)
+
+mysql> create table Online_products(name varchar(30),category varchar(20),price int,brand varchar(20),ratings decimal(6,2));
+Query OK, 0 rows affected (1.30 sec)
+
+mysql> insert into Online_products values('Black_shirt','Clothing',900,'Puma',4.8),('Barbie','doll',800,'Puma',4.0),('Black_jeans','Clothing',2000,'blacky',5.0),('Bourbon_small','snacks',1000,'bourbon',7.0),('bourbon_with_extracookies','snacks',600,'lays',3.8),('Chips','snacks',600,'lays',5.8),('Black_shirt','Horn',900,'Puma',4.8),;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> insert into Online_products values('Black_shirt','Clothing',900,'Puma',4.8),('Barbie','doll',800,'Puma',4.0),('Black_jeans','Clothing',2000,'blacky',5.0),('Bourbon_small','snacks',1000,'bourbon',7.0),('bourbon_with_extracookies','snacks',600,'lays',3.8),('Chips','snacks',600,'lays',5.8),('Horn_toy','doll',7000,'Puma',6.8),('potato_chips','snacks',100,'lays',2.5);
+Query OK, 8 rows affected (0.12 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select*from Online_products;
++---------------------------+----------+-------+---------+---------+
+| name                      | category | price | brand   | ratings |
++---------------------------+----------+-------+---------+---------+
+| Black_shirt               | Clothing |   900 | Puma    |    4.80 |
+| Barbie                    | doll     |   800 | Puma    |    4.00 |
+| Black_jeans               | Clothing |  2000 | blacky  |    5.00 |
+| Bourbon_small             | snacks   |  1000 | bourbon |    7.00 |
+| bourbon_with_extracookies | snacks   |   600 | lays    |    3.80 |
+| Chips                     | snacks   |   600 | lays    |    5.80 |
+| Horn_toy                  | doll     |  7000 | Puma    |    6.80 |
+| potato_chips              | snacks   |   100 | lays    |    2.50 |
++---------------------------+----------+-------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select*from Online_products where brand='puma';
++-------------+----------+-------+-------+---------+
+| name        | category | price | brand | ratings |
++-------------+----------+-------+-------+---------+
+| Black_shirt | Clothing |   900 | Puma  |    4.80 |
+| Barbie      | doll     |   800 | Puma  |    4.00 |
+| Horn_toy    | doll     |  7000 | Puma  |    6.80 |
++-------------+----------+-------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select*from Online_products where name like '%jeans';
++-------------+----------+-------+--------+---------+
+| name        | category | price | brand  | ratings |
++-------------+----------+-------+--------+---------+
+| Black_jeans | Clothing |  2000 | blacky |    5.00 |
++-------------+----------+-------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select*from Online_products where name like 'bourbon%';
++---------------------------+----------+-------+---------+---------+
+| name                      | category | price | brand   | ratings |
++---------------------------+----------+-------+---------+---------+
+| Bourbon_small             | snacks   |  1000 | bourbon |    7.00 |
+| bourbon_with_extracookies | snacks   |   600 | lays    |    3.80 |
++---------------------------+----------+-------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select*from Online_products where name alike '%chips%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'alike '%chips%'' at line 1
+mysql> select*from Online_products where name alike '%chips';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'alike '%chips'' at line 1
+mysql> select*from Online_products where name like '%chips%';
++--------------+----------+-------+-------+---------+
+| name         | category | price | brand | ratings |
++--------------+----------+-------+-------+---------+
+| Chips        | snacks   |   600 | lays  |    5.80 |
+| potato_chips | snacks   |   100 | lays  |    2.50 |
++--------------+----------+-------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select*from Online_products where name like '%____' or 'h%';
++---------------------------+----------+-------+---------+---------+
+| name                      | category | price | brand   | ratings |
++---------------------------+----------+-------+---------+---------+
+| Black_shirt               | Clothing |   900 | Puma    |    4.80 |
+| Barbie                    | doll     |   800 | Puma    |    4.00 |
+| Black_jeans               | Clothing |  2000 | blacky  |    5.00 |
+| Bourbon_small             | snacks   |  1000 | bourbon |    7.00 |
+| bourbon_with_extracookies | snacks   |   600 | lays    |    3.80 |
+| Chips                     | snacks   |   600 | lays    |    5.80 |
+| Horn_toy                  | doll     |  7000 | Puma    |    6.80 |
+| potato_chips              | snacks   |   100 | lays    |    2.50 |
++---------------------------+----------+-------+---------+---------+
+8 rows in set, 1 warning (0.00 sec)
+
+mysql> select*from Online_products where name like '%____' or 'h%r';
++---------------------------+----------+-------+---------+---------+
+| name                      | category | price | brand   | ratings |
++---------------------------+----------+-------+---------+---------+
+| Black_shirt               | Clothing |   900 | Puma    |    4.80 |
+| Barbie                    | doll     |   800 | Puma    |    4.00 |
+| Black_jeans               | Clothing |  2000 | blacky  |    5.00 |
+| Bourbon_small             | snacks   |  1000 | bourbon |    7.00 |
+| bourbon_with_extracookies | snacks   |   600 | lays    |    3.80 |
+| Chips                     | snacks   |   600 | lays    |    5.80 |
+| Horn_toy                  | doll     |  7000 | Puma    |    6.80 |
+| potato_chips              | snacks   |   100 | lays    |    2.50 |
++---------------------------+----------+-------+---------+---------+
+8 rows in set, 1 warning (0.00 sec)
+
+mysql>
+mysql> select*from Online_products where name like '%____' and 'h%r';
+Empty set, 1 warning (0.00 sec)
+
+mysql> select*from Online_products where price<=1000;
++---------------------------+----------+-------+---------+---------+
+| name                      | category | price | brand   | ratings |
++---------------------------+----------+-------+---------+---------+
+| Black_shirt               | Clothing |   900 | Puma    |    4.80 |
+| Barbie                    | doll     |   800 | Puma    |    4.00 |
+| Bourbon_small             | snacks   |  1000 | bourbon |    7.00 |
+| bourbon_with_extracookies | snacks   |   600 | lays    |    3.80 |
+| Chips                     | snacks   |   600 | lays    |    5.80 |
+| potato_chips              | snacks   |   100 | lays    |    2.50 |
++---------------------------+----------+-------+---------+---------+
+6 rows in set (0.11 sec)
+
+mysql> select*from Online_products where ratings>4.0 as "Best rated Products";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as "Best rated Products"' at line 1
+mysql> select*from Online_products where ratings>4.00 as "Best rated Products";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as "Best rated Products"' at line 1
+mysql> select*from Online_products where ratings>4.00 as "Best rated Products";
+       select*from Online_products where ratings>4.00 as "Best rated Products";select*from Online_products where ratings>4.00 as "Best rated Products";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as "Best rated Products"' at line 1
+mysql> select*from Online_products where (ratings>4.00) as "Best rated Products";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as "Best rated Products"' at line 1
+mysql> select*from Online_products where (ratings>4.00) as "Best_rated_Products";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as "Best_rated_Products"' at line 1
+mysql> select*from Online_products where (ratings>4.00) as "Best_rated_Products";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as "Best_rated_Products"' at line 1
+mysql> select*from Online_products where (ratings>4.00) as "Best_rated_Products";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as "Best_rated_Products"' at line 1
+mysql> select * from online_products
+    -> where ratings<4.0;
++---------------------------+----------+-------+-------+---------+
+| name                      | category | price | brand | ratings |
++---------------------------+----------+-------+-------+---------+
+| bourbon_with_extracookies | snacks   |   600 | lays  |    3.80 |
+| potato_chips              | snacks   |   100 | lays  |    2.50 |
++---------------------------+----------+-------+-------+---------+
+2 rows in set (0.11 sec)
+
+mysql> select * from online_products
+    -> where ratings<4.0;
++---------------------------+----------+-------+-------+---------+
+| name                      | category | price | brand | ratings |
++---------------------------+----------+-------+-------+---------+
+| bourbon_with_extracookies | snacks   |   600 | lays  |    3.80 |
+| potato_chips              | snacks   |   100 | lays  |    2.50 |
++---------------------------+----------+-------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select name as "Best Rated Products" from online_products
+    -> where ratings<4.0;
++---------------------------+
+| Best Rated Products       |
++---------------------------+
+| bourbon_with_extracookies |
+| potato_chips              |
++---------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select name as "Best Rated Products" from online_products
+    -> where ratings>4.0;
++---------------------+
+| Best Rated Products |
++---------------------+
+| Black_shirt         |
+| Black_jeans         |
+| Bourbon_small       |
+| Chips               |
+| Horn_toy            |
++---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from online_products;
++---------------------------+----------+-------+---------+---------+
+| name                      | category | price | brand   | ratings |
++---------------------------+----------+-------+---------+---------+
+| Black_shirt               | Clothing |   900 | Puma    |    4.80 |
+| Barbie                    | doll     |   800 | Puma    |    4.00 |
+| Black_jeans               | Clothing |  2000 | blacky  |    5.00 |
+| Bourbon_small             | snacks   |  1000 | bourbon |    7.00 |
+| bourbon_with_extracookies | snacks   |   600 | lays    |    3.80 |
+| Chips                     | snacks   |   600 | lays    |    5.80 |
+| Horn_toy                  | doll     |  7000 | Puma    |    6.80 |
+| potato_chips              | snacks   |   100 | lays    |    2.50 |
++---------------------------+----------+-------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from online_products
+    -> where name like 'H_r%';
++----------+----------+-------+-------+---------+
+| name     | category | price | brand | ratings |
++----------+----------+-------+-------+---------+
+| Horn_toy | doll     |  7000 | Puma  |    6.80 |
++----------+----------+-------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into Online_products values('sound_horn','doll',600,'puma',8.0);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select*from online_products;
++---------------------------+----------+-------+---------+---------+
+| name                      | category | price | brand   | ratings |
++---------------------------+----------+-------+---------+---------+
+| Black_shirt               | Clothing |   900 | Puma    |    4.80 |
+| Barbie                    | doll     |   800 | Puma    |    4.00 |
+| Black_jeans               | Clothing |  2000 | blacky  |    5.00 |
+| Bourbon_small             | snacks   |  1000 | bourbon |    7.00 |
+| bourbon_with_extracookies | snacks   |   600 | lays    |    3.80 |
+| Chips                     | snacks   |   600 | lays    |    5.80 |
+| Horn_toy                  | doll     |  7000 | Puma    |    6.80 |
+| potato_chips              | snacks   |   100 | lays    |    2.50 |
+| sound_horn                | doll     |   600 | puma    |    8.00 |
++---------------------------+----------+-------+---------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select name from online_products
+    -> where name like '%h_r_';
++-------------+
+| name        |
++-------------+
+| Black_shirt |
+| sound_horn  |
++-------------+
+2 rows in set (0.00 sec)
+
+mysql> select name from online_products
+    -> ;
++---------------------------+
+| name                      |
++---------------------------+
+| Black_shirt               |
+| Barbie                    |
+| Black_jeans               |
+| Bourbon_small             |
+| bourbon_with_extracookies |
+| Chips                     |
+| Horn_toy                  |
+| potato_chips              |
+| sound_horn                |
++---------------------------+
+9 rows in set (0.00 sec)
+
+mysql> notee
+Outfile disabled.
+mysql>
